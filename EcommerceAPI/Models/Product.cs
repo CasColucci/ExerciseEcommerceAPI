@@ -10,10 +10,19 @@
 
         public decimal Price { get; set; }
 
-        public required string Category { get; set; }
+        public Category Category { get; set; }
 
         public  DateTime CreatedDate { get; set; }
 
         public DateTime? UpdatedDate { get; set; }
+    }
+
+    public enum Category
+    {
+        Electronics,
+        Clothing,
+        Home,
+        Kitchen,
+        Beauty
     }
 }
