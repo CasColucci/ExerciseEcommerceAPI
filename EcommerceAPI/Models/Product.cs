@@ -10,7 +10,7 @@
 
         public decimal Price { get; set; }
 
-        public required Enum Category { get; set; }
+        public required string Category { get; set; }
 
         public  DateTime CreatedDate { get; set; }
 
