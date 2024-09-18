@@ -32,11 +32,43 @@ namespace EcommerceAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddProduct([FromBody] Product product)
+        public async Task<IActionResult> AddProduct([FromBody]Product product)
         {
-            await _context.Products.AddAsync(product);
+            _context.Products.Add(product);
             await _context.SaveChangesAsync();
-            return StatusCode(StatusCodes.Status201Created);
+            return Ok();
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateProduct([FromBody] Product product)
+        {
+            var updateProduct = await _context.Products.FindAsync(product.Id);
+            if(updateProduct == null)
+            {
+                return NotFound("Product not found");
+            }
+            updateProduct.Name = product.Name;
+            updateProduct.Description = product.Description;
+            updateProduct.Price = product.Price;
+            updateProduct.Category = product.Category;
+            updateProduct.CreatedDate = product.CreatedDate;
+            updateProduct.UpdatedDate = DateTime.Now;
+
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpDelete()]
+        public async Task<IActionResult> DeleteProduct([FromQuery] int id)
+        {
+            var product = await _context.Products.FindAsync(id);
+            if (product == null)
+            {
+                return NotFound("Product not found");
+            }
+            _context.Products.Remove(product);
+            await _context.SaveChangesAsync();
+            return Ok();
         }
     }
 }
