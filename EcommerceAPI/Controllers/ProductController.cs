@@ -3,6 +3,8 @@ using EcommerceAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Linq;
 
 namespace EcommerceAPI.Controllers
 {
@@ -25,9 +27,21 @@ namespace EcommerceAPI.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<IActionResult> SearchProducts([FromQuery] string name)
+        public async Task<IActionResult> SearchProducts([FromBody] SearchProduct search)
         {
-            var products = await _context.Products.Where(p => p.Name.Contains(name)).ToListAsync();
+            var products = new List<Product>();
+            if (search.Name == null && search.Category == null)
+            {
+                return BadRequest("Name or Category is required");
+            }
+            if(search.Name != null)
+            {
+                products = await _context.Products.Where(p => p.Name.Contains(search.Name)).ToListAsync();
+            }    
+            if(search.Category != null)
+            {
+                products = await _context.Products.Where(p => p.Category == search.Category).ToListAsync();
+            }
             return Ok(products);
         }
 

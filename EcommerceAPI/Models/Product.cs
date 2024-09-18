@@ -20,13 +20,4 @@ namespace EcommerceAPI.Models
 
         public DateTime? UpdatedDate { get; set; }
     }
-
-    public enum Category
-    {
-        Electronics,
-        Clothing,
-        Home,
-        Kitchen,
-        Beauty
-    }
 }
