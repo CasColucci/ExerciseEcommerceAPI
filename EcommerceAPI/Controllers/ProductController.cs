@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace EcommerceAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class ProductController : ControllerBase
     {
@@ -16,7 +16,7 @@ namespace EcommerceAPI.Controllers
 
         public ProductController(EcommerceDbContext context)
         {
-            _context = context;
+            this._context = context;
         }
 
         [HttpGet]
