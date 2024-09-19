@@ -1,6 +1,38 @@
-@EcommerceAPI_HostAddress = http://localhost:5031
+@EcommerceAPI_HostAddress = https://localhost:7213
 
 GET {{EcommerceAPI_HostAddress}}/weatherforecast/
 Accept: application/json
+
+
+
+###
+
+GET {{EcommerceAPI_HostAddress}}/api/product
+
+###
+
+POST {{EcommerceAPI_HostAddress}}/api/product
+Content-Type: application/json
+
+{
+  //Product
+}
+
+###
+
+PUT {{EcommerceAPI_HostAddress}}/api/product
+Content-Type: application/json
+
+{
+  //Product
+}
+
+###
+
+DELETE {{EcommerceAPI_HostAddress}}/api/product?id=0
+
+###
+
+GET {{EcommerceAPI_HostAddress}}/api/product/search
 
 ###
