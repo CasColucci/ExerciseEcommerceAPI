@@ -26,6 +26,17 @@ namespace EcommerceAPI.Controllers
             return Ok(products);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProductById(int id)
+        {
+            var product = await _context.Products.FindAsync(id);
+            if (product == null)
+            {
+                return NotFound("Product not found");
+            }
+            return Ok(product);
+        }
+
         [HttpGet("search")]
         public async Task<IActionResult> SearchProducts([FromBody] SearchProduct search)
         {
