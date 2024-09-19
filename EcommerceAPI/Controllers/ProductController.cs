@@ -84,17 +84,25 @@ namespace EcommerceAPI.Controllers
             return Ok();
         }
 
-        [HttpDelete()]
-        public async Task<IActionResult> DeleteProduct([FromQuery] int id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteProduct(int id)
         {
-            var product = await _context.Products.FindAsync(id);
-            if (product == null)
+            try 
             {
-                return NotFound("Product not found");
+                var product = await _context.Products.FindAsync(id);
+                if (product == null)
+                {
+                    return NotFound("Product not found");
+                }
+                _context.Products.Remove(product);
+                await _context.SaveChangesAsync();
+                return Ok();
             }
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
-            return Ok();
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+
         }
     }
 }
